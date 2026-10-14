@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>楊梅高中分機一覽表 - 互動式校園通訊資訊網</title>
+  <meta name="description" content="桃園市立楊梅高級中學語音電話分機一覽表，提供即時搜尋、處室分類瀏覽、大樓導覽、常用收藏、電話直撥與互動撥號音效。支援手機、平板與電腦。">
+  
+  <!-- 外部樣式表 -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%232563eb'/><text x='50' y='64' font-size='42' font-family='sans-serif' text-anchor='middle' fill='white' font-weight='bold'>梅</text></svg>">
+</head>
+<body>
+
+  <!-- ================= 頂部導航與功能工具列 ================= -->
+  <header class="site-header" role="banner">
+    <div class="container header-content">
+      <!-- 校名與標題 -->
+      <a href="#" class="brand-section" aria-label="回到分機表首頁">
+        <div class="school-badge-wrapper" title="桃園市立楊梅高級中學">
+          <!-- 楊梅高中 梅花校徽精緻向量 SVG -->
+          <svg class="badge-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="#1e3a8a" stroke="#ffffff" stroke-width="3"/>
+            <!-- 梅花花瓣造型 -->
+            <path d="M50 20 C42 8, 28 14, 34 28 C20 26, 14 42, 28 48 C14 54, 20 70, 34 68 C28 82, 42 88, 50 76 C58 88, 72 82, 66 68 C80 70, 86 54, 72 48 C86 42, 80 26, 66 28 C72 14, 58 8, 50 20 Z" fill="#ffffff" opacity="0.95"/>
+            <circle cx="50" cy="48" r="16" fill="#f59e0b"/>
+            <text x="50" y="55" font-family="'Noto Sans TC', sans-serif" font-size="16" font-weight="900" fill="#1e3a8a" text-anchor="middle">楊高</text>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <span class="school-subname">桃園市立楊梅高級中學</span>
+          <h1 class="site-title">
+            楊梅高中分機一覽表
+            <span class="title-badge">115學年度最新版</span>
+          </h1>
+        </div>
+      </a>
+
+      <!-- 快捷工具群 (字級大小調節、音效開關、主題切換、模擬撥號盤) -->
+      <div class="header-actions">
+        <!-- 閱讀字體放大縮小 (符合「限制：不要太小」) -->
+        <div class="font-scale-group" title="調節閱讀字體大小">
+          <button class="btn-font-scale active" data-size="normal" aria-label="標準字體">A 標準</button>
+          <button class="btn-font-scale" data-size="large" aria-label="放大字體">A+ 放大</button>
+          <button class="btn-font-scale" data-size="xlarge" aria-label="特大字體">A++ 特大</button>
+        </div>
+
+        <!-- 原生音效開關 -->
+        <button id="sound-toggle-btn" class="btn-ctrl active" title="切換互動操作音效與撥號音">
+          <span id="sound-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          </span>
+          <span id="sound-text">音效開</span>
+        </button>
+
+        <!-- 模擬撥號盤快速入口 -->
+        <button id="open-dialpad-btn" class="btn-ctrl" title="開啟互動式電話撥號盤">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="8" cy="8" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="16" cy="8" r="1"/><circle cx="8" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="16" cy="12" r="1"/><circle cx="8" cy="16" r="1"/><circle cx="12" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg>
+          <span>撥號盤</span>
+        </button>
+
+        <!-- 深淺主題切換 -->
+        <button id="theme-toggle-btn" class="btn-ctrl" title="切換深色/淺色主題" aria-label="主題切換">
+          <span id="theme-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= 主要主體區域 ================= -->
+  <main class="container" role="main">
+
+    <!-- 頂部總機重要電話公告橫幅 (Hero Banner) -->
+    <section class="hero-banner" aria-label="學校總機專線概覽">
+      <div class="hero-layout">
+        <div class="hero-main-info">
+          <h2>
+            <span>📞 語音電話總機服務</span>
+          </h2>
+          <p>
+            來電請撥打總機號碼，聽到語音引導後請輸入 <strong>4 碼分機號碼</strong>；手機撥打可直接點擊下方電話快速連線。
+          </p>
+          <div class="switchboard-pill-group">
+            <a href="tel:03-4789618" class="switchboard-pill" title="撥打總機代表號">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>代表號：03-4789618</span>
+            </a>
+            <a href="tel:03-4780449" class="switchboard-pill" title="撥打二線電話">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>二線：03-4780449</span>
+            </a>
+            <a href="tel:03-4780740" class="switchboard-pill" title="撥打三線電話">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>三線：03-4780740</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 輔助資訊標籤與原始分機表對照入口 -->
+        <div class="hero-meta-badges">
+          <span class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            編製單位：總務處 (版本 115/09/07)
+          </span>
+          <button id="open-original-btn" class="btn-ctrl" style="background: rgba(255,255,255,0.2); color:white; border-color: rgba(255,255,255,0.4);" title="查看學校原始分機一覽表 PDF 掃描圖">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>對照原始分機表</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 檢索與控制中樞 (Search & Filter Hub) ================= -->
+    <section class="control-hub" aria-label="分機即時搜尋與過濾">
+      <!-- 搜尋輸入框 -->
+      <div class="search-bar-wrapper">
+        <svg class="search-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="快速搜尋：輸入姓名（鍾校長）、處室（教務處）、職稱（註冊組）、分機（1201）、專線或地點..."
+          autocomplete="off"
+          aria-label="搜尋分機一覽表"
+        >
+        <button id="search-clear-btn" class="search-clear-btn" title="清除搜尋文字" aria-label="清除搜尋">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- 快速熱門推薦搜尋關鍵字標籤 -->
+      <div class="quick-tags-row">
+        <span class="quick-tags-title">🔥 常見搜尋：</span>
+        <button class="quick-tag-chip" data-tag="校長室">校長室</button>
+        <button class="quick-tag-chip" data-tag="教務處">教務處</button>
+        <button class="quick-tag-chip" data-tag="學務處">學務處</button>
+        <button class="quick-tag-chip" data-tag="校安中心">校安中心 (請假/通報)</button>
+        <button class="quick-tag-chip" data-tag="健康中心">健康中心 / 護理師</button>
+        <button class="quick-tag-chip" data-tag="圖書館">圖書館</button>
+        <button class="quick-tag-chip" data-tag="輔導室">輔導室</button>
+        <button class="quick-tag-chip" data-tag="警衛室">警衛室</button>
+        <button class="quick-tag-chip" data-tag="導師室">導師室</button>
+        <button class="quick-tag-chip" data-tag="實驗室">實驗室</button>
+        <button class="quick-tag-chip" data-tag="游泳池">游泳池</button>
+      </div>
+
+      <!-- 處室分類藥丸頁籤 (Category Tabs) -->
+      <div id="category-tabs-container" class="category-filter-bar" role="tablist">
+        <!-- 由 JavaScript 動態生成渲染 -->
+      </div>
+
+      <!-- 狀態總結與檢視模式切換 (Card vs Table vs Building) -->
+      <div class="toolbar-subrow">
+        <div id="results-summary" class="search-summary-text">
+          載入資料中...
+        </div>
+
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <!-- 檢視模式選擇 -->
+          <div class="view-mode-selector" title="切換檢視風格">
+            <button class="view-mode-btn active" data-mode="grid" title="卡片網格檢視">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+              <span>卡片檢視</span>
+            </button>
+            <button class="view-mode-btn" data-mode="table" title="緊湊列表表格檢視">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+              <span>表格檢視</span>
+            </button>
+            <button class="view-mode-btn" data-mode="building" title="校園大樓導覽檢視">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/></svg>
+              <span>大樓空間</span>
+            </button>
+          </div>
+
+          <!-- 列印與匯出工具按鈕 -->
+          <button id="print-btn" class="btn-ctrl" title="列印優化分機一覽表">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            <span>列印</span>
+          </button>
+          <button id="export-csv-btn" class="btn-ctrl" title="匯出分機資料為 CSV 試算表">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            <span>匯出CSV</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 內容主要展示區域 (動態替換渲染) ================= -->
+    <div id="main-display-area" aria-live="polite">
+      <!-- 由 JavaScript 動態生成渲染 -->
+    </div>
+
+  </main>
+
+  <!-- ================= 互動式虛擬撥號盤模態框 (Interactive DTMF Keypad) ================= -->
+  <div id="dialpad-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="dialpad-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="dialpad-modal-title" class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24" style="color: var(--primary);"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="8" cy="8" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="16" cy="8" r="1"/><circle cx="8" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="16" cy="12" r="1"/><circle cx="8" cy="16" r="1"/><circle cx="12" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg>
+          模擬電話撥號盤 (支援 DTMF 雙音多頻)
+        </h3>
+        <button id="dialpad-close-btn" class="modal-close-btn" title="關閉撥號盤" aria-label="關閉撥號盤">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="dialpad-container">
+          <!-- 號碼顯示幕 -->
+          <div class="dialpad-display">
+            <div id="dialpad-display-num" class="dialpad-number">請輸入號碼</div>
+            <div class="dialpad-subhint">點擊按鍵可發出真實撥號雙音 (DTMF)</div>
+          </div>
+
+          <!-- 3x4 撥號按鍵 -->
+          <div class="dialpad-grid">
+            <button class="dialpad-key" data-val="1">
+              <span class="key-num">1</span>
+              <span class="key-letters">&nbsp;</span>
+            </button>
+            <button class="dialpad-key" data-val="2">
+              <span class="key-num">2</span>
+              <span class="key-letters">ABC</span>
+            </button>
+            <button class="dialpad-key" data-val="3">
+              <span class="key-num">3</span>
+              <span class="key-letters">DEF</span>
+            </button>
+
+            <button class="dialpad-key" data-val="4">
+              <span class="key-num">4</span>
+              <span class="key-letters">GHI</span>
+            </button>
+            <button class="dialpad-key" data-val="5">
+              <span class="key-num">5</span>
+              <span class="key-letters">JKL</span>
+            </button>
+            <button class="dialpad-key" data-val="6">
+              <span class="key-num">6</span>
+              <span class="key-letters">MNO</span>
+            </button>
+
+            <button class="dialpad-key" data-val="7">
+              <span class="key-num">7</span>
+              <span class="key-letters">PQRS</span>
+            </button>
+            <button class="dialpad-key" data-val="8">
+              <span class="key-num">8</span>
+              <span class="key-letters">TUV</span>
+            </button>
+            <button class="dialpad-key" data-val="9">
+              <span class="key-num">9</span>
+              <span class="key-letters">WXYZ</span>
+            </button>
+
+            <button class="dialpad-key" data-val="*">
+              <span class="key-num">*</span>
+              <span class="key-letters">&nbsp;</span>
+            </button>
+            <button class="dialpad-key" data-val="0">
+              <span class="key-num">0</span>
+              <span class="key-letters">+</span>
+            </button>
+            <button class="dialpad-key" data-val="#">
+              <span class="key-num">#</span>
+              <span class="key-letters">&nbsp;</span>
+            </button>
+          </div>
+
+          <!-- 撥出與倒退鍵 -->
+          <div class="dialpad-actions-row">
+            <a href="tel:034789618" id="dial-call-btn" class="btn-dial-call">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>撥出電話</span>
+            </a>
+            <button id="dial-clear-btn" class="btn-dial-clear" title="退格清除一個數字">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" x2="12" y1="9" y2="15"/><line x1="12" x2="18" y1="9" y2="15"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 原始 PDF 分機表預覽彈窗 (Original Table Modal) ================= -->
+  <div id="original-table-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="original-modal-title">
+    <div class="modal-dialog" style="max-width: 900px;">
+      <div class="modal-header">
+        <h3 id="original-modal-title" class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" style="color: var(--primary);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          原始紙本分機表對照圖 (總務處編製 115/09/07 版本)
+        </h3>
+        <button id="original-close-btn" class="modal-close-btn" title="關閉預覽" aria-label="關閉預覽">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body" style="text-align: center; background: #334155; padding: 16px;">
+        <img 
+          src="ymsh_table_page1.png" 
+          alt="桃園市立楊梅高級中學語音電話分機一覽表 原始掃描對照圖" 
+          class="original-pdf-preview"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 浮動提示容器 (Toast Notification Container) ================= -->
+  <div id="toast-container" class="toast-container" aria-live="assertive"></div>
+
+  <!-- ================= 頁尾資訊 (Footer) ================= -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-content">
+      <div class="footer-info">
+        <p><strong>桃園市立楊梅高級中學</strong> (Taoyuan Municipal Yang-Mei Senior High School)</p>
+        <p>學校地址：326002 桃園市楊梅區高獅路1號 ｜ 代表號電話：03-4789618</p>
+        <p style="font-size: var(--font-sm); color: var(--text-light); margin-top: 4px;">
+          本站採用響應式 (RWD) 視覺化互動設計，支援智慧型手機、平板電腦與桌上型電腦無障礙閱覽。
+        </p>
+      </div>
+      <div class="footer-links">
+        <button class="btn-ctrl" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
+          <span>回到頂部</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 資料來源與主程式指令碼 -->
+  <script src="ymsh_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
